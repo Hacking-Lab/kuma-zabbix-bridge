@@ -2,11 +2,11 @@
 This software bridges Kuma to Zabbix
 
 # Build
-- edit config.ini in ./build/config/config.ini
+- edit config.ini in `./build/config/config.ini`
   - zabbix url and API key
   - kuma-zabbix-bridge API key
   - kuma username and password
-- run `docker compose up -d --build"
+- run `docker compose up -d --build`
 
 # Example Setup
 - Traefik + Kuma + Kuma-Zabbix-Bridge
@@ -15,7 +15,7 @@ This software bridges Kuma to Zabbix
   - kuma username and password
   - MariaDB username and password
 - edit config.ini in kuma-zabbix-bridge-setup-with-kuma-and-traefik/config
-- run `docker compose up -d"
+- run `docker compose up -d`
 - setup KUMA with username/password from config.ini
 
 
