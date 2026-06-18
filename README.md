@@ -20,7 +20,10 @@ This software bridges Kuma to Zabbix
 
 
 # Testing Kuma-Zabbix-Bridge
-- assuming bridge has the IP 172.18.0.4 assigned 
+- assuming bridge has the IP 172.18.0.4 assigned
+
+<img width="1264" height="823" alt="image" src="https://github.com/user-attachments/assets/9bc8fc3a-7f47-4e5d-8120-403c41eac279" />
+
 
 ## Simple
 ```bash
