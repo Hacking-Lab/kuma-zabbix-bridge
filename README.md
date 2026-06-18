@@ -1,7 +1,27 @@
 # Kuma Zabbix Bridge
 This software bridges Kuma to Zabbix
 
-# Kuma
+# Build
+- edit config.ini in ./build/config/config.ini
+  - zabbix url and API key
+  - kuma-zabbix-bridge API key
+  - kuma username and password
+- run `docker compose up -d --build"
+
+# Example Setup
+- Traefik + Kuma + Kuma-Zabbix-Bridge
+  - zabbix url and API key
+  - kuma-zabbix-bridge API key
+  - kuma username and password
+  - MariaDB username and password
+- edit config.ini in kuma-zabbix-bridge-setup-with-kuma-and-traefik/config
+- run `docker compose up -d"
+- setup KUMA with username/password from config.ini
+
+
+# Testing Kuma-Zabbix-Bridge
+- assuming bridge has the IP 172.18.0.4 assigned 
+
 ## Simple
 ```bash
 curl -s http://172.18.0.4:8080/health | jq
@@ -11,46 +31,38 @@ curl -s http://172.18.0.4:8080/cache | jq
 
 ## Preview Monitor Creation
 ```bash
+# find token in config.ini
 curl -s -X POST "http://172.18.0.4:8080/sync-kuma-preview?token=<removed>" | jq
 ```
 
 ## Dry Run Monitor Creation
 ```bash
+# find token in config.ini
 curl -s -X POST "http://172.18.0.4:8080/sync-kuma?token=<removed>" | jq
 curl -s -X POST "http://172.18.0.4:8080/sync-kuma?token=<removed>" | jq
 ```
 
 ## Create New Monitors
 ```bash
+# find token in config.ini
 curl -s -X POST "http://172.18.0.4:8080/sync-kuma?token=<removed>&apply=true" | jq
 curl -s -X POST "http://172.18.0.4:8080/sync-kuma?token=<removed>&apply=true" | jq
 ```
 
 ## Create New Monitors and delete removed Zabbix Items
 ```bash
+# find token in config.ini
 curl -s -X POST "http://172.18.0.4:8080/sync-kuma?token=<removed>&apply=true&delete_missing=true" | jq
 ```
 
 ## Debugging Triggers
 ```bash
+# find token in config.ini
 curl -s http://172.18.0.4:8080/debug/triggers   | jq -r '.[] | select(.allowed==true) | .host' | sort -u
 ```
 
 
-# ALL
-```bash
-curl -s http://172.18.0.4:8080/health | jq
-curl -s http://172.18.0.4:8080/services | jq
-curl -s http://172.18.0.4:8080/cache | jq
-
-curl -s -X POST "http://172.18.0.4:8080/sync-kuma-preview?token=<removed>" | jq
-curl -s -X POST "http://172.18.0.4:8080/sync-kuma?token=<removed>" | jq
-curl -s -X POST "http://172.18.0.4:8080/sync-kuma?token=<removed>&apply=true" | jq
-curl -s -X POST "http://172.18.0.4:8080/sync-kuma?token=<removed>&apply=true&delete_missing=true" | jq
-```
-
-
-# Zabbix
+# Zabbix Debugging (without kuma-zabbix-bridge)
 ## appinfo.version
 ```bash
 echo "==========================="

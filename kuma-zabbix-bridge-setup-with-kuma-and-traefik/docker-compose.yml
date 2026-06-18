@@ -42,7 +42,7 @@ services:
 
       # Optional application user
       MARIADB_USER: "kuma"
-      MARIADB_PASSWORD: "<removed>
+      MARIADB_PASSWORD: "<removed>"
 
       # Character set and collation
       MARIADB_CHARACTER_SET_SERVER: "utf8mb4"
@@ -81,6 +81,8 @@ services:
     environment:
     - AUTHOR=e1
     - HL_USER_USERNAME=hacker
+    volumes:
+      - ./config/config.ini:/opt/app/config.ini
     networks:
       transit:
     restart: always
