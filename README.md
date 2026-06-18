@@ -1,6 +1,9 @@
 # Kuma Zabbix Bridge
 This software bridges Kuma to Zabbix
 
+<img width="1019" height="348" alt="image" src="https://github.com/user-attachments/assets/4722e98f-a2a5-4637-811b-287f09970fbc" />
+
+
 # Build
 - edit config.ini in `./build/config/config.ini`
   - zabbix url and API key
