@@ -1,0 +1,10 @@
+
+services:
+  alpine-kuma-zabbix-bridge:
+    build: .
+    image: hackinglab/kuma-zabbix-bridge
+    environment:
+    - AUTHOR=e1
+    - HL_USER_USERNAME=hacker
+    ports:
+      - 80:8080

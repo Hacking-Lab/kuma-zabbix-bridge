@@ -1,0 +1,22 @@
+[mysqld]
+max_connections=500
+
+# Logging
+slow_query_log=1
+long_query_time=2
+
+# Character set
+character-set-server=utf8mb4
+collation-server=utf8mb4_unicode_ci
+
+# InnoDB
+innodb_buffer_pool_size=512M
+innodb_flush_log_at_trx_commit=1
+
+# Networking
+bind-address=0.0.0.0
+
+# Security
+skip-name-resolve
+
+

@@ -1,0 +1,90 @@
+
+services:
+  kuma:
+    image: louislam/uptime-kuma:2
+    container_name: uptime-kuma-example-security
+    environment:
+      - TZ=Europe/Zurich
+    labels:
+      - "traefik.enable=true"
+      # HTTP Routers KUMA NORMAL
+      - "traefik.http.routers.kuma-example.entrypoints=websecure"
+      - "traefik.http.routers.kuma-example.rule=Host(`kuma.example.com`)"
+      - "traefik.http.routers.kuma-example.service=kuma-example"
+      # HTTP Routers KUMA DASHBOARD
+      - "traefik.http.routers.kuma-example-priv.entrypoints=websecure"
+      - "traefik.http.routers.kuma-example-priv.rule=Host(`kuma.example.com`) && (PathPrefix(`/{path:(?s).*socket.io}`) || PathPrefix(`/dashboard`) || PathPrefix(`/api/status-page`) || PathPrefix(`/api/badge`))"
+      - "traefik.http.routers.kuma-example-priv.service=kuma-example"
+      # HTTP Services
+      - "traefik.http.services.kuma-example.loadBalancer.server.port=3001"
+    volumes:
+      - ./uptime-kuma-data:/app/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: always
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    networks:
+      transit:
+
+  mariadb:
+    image: mariadb:latest
+    container_name: mariadb
+
+    restart: always
+
+    environment:
+      # Root account
+      MARIADB_ROOT_PASSWORD: "<removed>"
+
+      # Optional application database
+      MARIADB_DATABASE: "kuma"
+
+      # Optional application user
+      MARIADB_USER: "kuma"
+      MARIADB_PASSWORD: "<removed>
+
+      # Character set and collation
+      MARIADB_CHARACTER_SET_SERVER: "utf8mb4"
+      MARIADB_COLLATION_SERVER: "utf8mb4_unicode_ci"
+
+    volumes:
+      - ./uptime-kuma-mariadb-data:/var/lib/mysql
+
+      # Optional custom configuration directory
+      - ./conf.d:/etc/mysql/conf.d
+
+    command:
+      [
+        "--max-connections=500",
+        "--innodb-buffer-pool-size=512M",
+        "--innodb-log-file-size=256M",
+        "--innodb-flush-log-at-trx-commit=1",
+        "--bind-address=0.0.0.0",
+        "--character-set-server=utf8mb4",
+        "--collation-server=utf8mb4_unicode_ci"
+      ]
+
+    healthcheck:
+      test: ["CMD", "mariadb-admin", "ping", "-uroot", "-p<removed>"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+    networks:
+      transit:
+
+
+
+  kuma-python-flask:
+    image: hackinglab/alpine-kuma-zabbix-bridge:latest
+    environment:
+    - AUTHOR=e1
+    - HL_USER_USERNAME=hacker
+    networks:
+      transit:
+    restart: always
+
+networks:
+  transit:
+    external: true
