@@ -3,6 +3,8 @@ This software bridges Kuma to Zabbix
 
 <img width="1019" height="348" alt="image" src="https://github.com/user-attachments/assets/4722e98f-a2a5-4637-811b-287f09970fbc" />
 
+# Python Flask App
+- https://github.com/Hacking-Lab/kuma-zabbix-bridge/blob/main/build/root/opt/app/app.py
 
 # Build
 - edit config.ini in `./build/config/config.ini`
