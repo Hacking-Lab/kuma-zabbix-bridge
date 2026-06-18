@@ -32,6 +32,9 @@ curl -s http://172.18.0.4:8080/services | jq
 curl -s http://172.18.0.4:8080/cache | jq
 ```
 
+<img width="845" height="322" alt="image" src="https://github.com/user-attachments/assets/9a098006-f8b0-46ab-a849-b69a8cc9b7ca" />
+
+
 ## Preview Monitor Creation
 ```bash
 # find token in config.ini
