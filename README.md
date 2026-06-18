@@ -14,7 +14,7 @@ This software bridges Kuma to Zabbix
   - kuma-zabbix-bridge API key
   - kuma username and password
   - MariaDB username and password
-- edit config.ini in kuma-zabbix-bridge-setup-with-kuma-and-traefik/config
+- edit config.ini in `kuma-zabbix-bridge-setup-with-kuma-and-traefik/config`
 - run `docker compose up -d`
 - setup KUMA with username/password from config.ini
 
